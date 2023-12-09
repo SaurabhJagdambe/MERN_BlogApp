@@ -33,10 +33,10 @@ const Login = () => {
         password: inputs.password,
       });
       if (data.success) {
+        localStorage.setItem('userId', data?.user._id);
         dispatch(authActions.login())
         alert("User Logged Succesfully");
-        console.log("failed")
-        navigate("/");
+        navigate("/blogs");
       }
     } catch (error) {
       console.log(error);

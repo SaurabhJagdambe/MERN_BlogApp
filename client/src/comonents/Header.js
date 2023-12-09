@@ -10,32 +10,28 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../redux/store";
 
 const Header = () => {
   // Global_State
-const isLogin = useSelector((state) => state.isLogin);
-const dispatch = useDispatch();
-const navigate = useNavigate();
-
+  const isLogin = useSelector((state) => state.isLogin);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //state
   const [value, setvalue] = useState();
 
   //logout
-  const handleLogout = ()=>{
-
+  const handleLogout = () => {
     try {
-      dispatch(authActions.logout())
+      dispatch(authActions.logout());
       alert("Logout SuccessFully");
-      navigate('/login');
-     
+      navigate("/login");
     } catch (error) {
-      console.error(error)
-      
+      console.error(error);
     }
-  }
+  };
   return (
     <>
       <AppBar position="sticky">
@@ -50,6 +46,11 @@ const navigate = useNavigate();
               >
                 <Tab label="BLOGS" LinkComponent={Link} to="/blogs" />
                 <Tab label="MY BLOGS" LinkComponent={Link} to="/my-blogs" />
+                <Tab
+                  label="CREATE BLOG"
+                  LinkComponent={Link}
+                  to="/create-blog"
+                />
               </Tabs>
             </Box>
           )}
@@ -75,8 +76,9 @@ const navigate = useNavigate();
             )}
             {isLogin && (
               <Button onClick={handleLogout} sx={{ margin: 1, color: "white" }}>
-              LogOut
-              </Button>)}
+                LogOut
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
