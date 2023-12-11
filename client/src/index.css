@@ -7,5 +7,9 @@
   /* material Ui use */
 
   body{
+    /* /* font-family: 'Mukta', sans-serif; */
+    font-family: 'Mulish', sans-serif; 
     font-family:"roboto",sans-serif;
+    background-color: #ffffff;
+    margin-bottom:70px ;
   }

@@ -82,7 +82,7 @@ exports.updateBlogController = async (req, res) => {
       { new: true }
     );
     return res.status(200).send({
-      sucess: true,
+      success: true,
       message: "Blog Updated!",
       blog,
     });
@@ -125,14 +125,14 @@ exports.getBlogByIdController = async (req, res) => {
 //Delete Blog
 exports.deleteBlogController = async (req, res) => {
   try {
-   const blog = await blogModel.findByIdAndDelete(req.params.id).populate('user');
-    await blog.user.blogs.pull(blog);
-    await blog.user.save();
+    const blog = await blogModel.findByIdAndDelete(req.params.id).populate("user");
+    await blog?.user?.blogs.pull(blog);
+    await blog?.user?.save();
     return res.status(200).send({
       success: true,
       message: "Blog-Deleted!",
     });
-          // Problem While deleting Blog  at 6-12min   solves  use 
+    // Problem While deleting Blog  at 6-12min   solves   ""
   } catch (error) {
     console.log(error);
     return res.status(400).send({
@@ -143,31 +143,27 @@ exports.deleteBlogController = async (req, res) => {
   }
 };
 
-
 // Get User Blog
-exports.userBlogController =async (req,res)=>{
+exports.userBlogController = async (req, res) => {
   try {
     const userBlog = await userModel.findById(req.params.id).populate("blogs");
-    if(!userBlog){
+    if (!userBlog) {
       return res.status(404).send({
-        success:false,
-        message:'blogs not found with this id'
+        success: false,
+        message: "blogs not found with this id",
       });
     }
     return res.status(200).send({
       success: true,
       message: "user blogs",
       userBlog,
-
-    })
+    });
   } catch (error) {
     console.log(error);
     return res.status(400).send({
       success: false,
       message: "Error in user Blog",
       error,
-    
-  })
-}
-}; 
-
+    });
+  }
+};

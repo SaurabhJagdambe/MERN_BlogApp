@@ -1,43 +1,58 @@
-import React,{useState,useEffect} from 'react';
-import axios from 'axios';
-import BlogCard from '../comonents/BlogCard';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import BlogCard from "../comonents/BlogCard";
+
 
 const UserBlogs = () => {
-    const [blogs,setBlogs] =useState([]);
+  const [blogs, setBlogs] = useState([]);
 
-    //get user blogs
-    const getUserBlogs = async()=>{
-      try {
-        const id = localStorage.getItem(`userId`)
-        const {data} = await axios.get(`/api/v1/blog/user-blog/${id}`);
-        if(data?.success){
-          setBlogs(data?.userBlog.blogs)
-        }
-        
-      } catch (error) {
-        console.log(error)
-        
+  //get user blogs
+  const getUserBlogs = async () => {
+    try {
+      const id = localStorage.getItem("userId");
+      const { data } = await axios.get(`/api/v1/blog/user-blog/${id}`);
+      if (data?.success) {
+        setBlogs(data?.userBlog.blogs);
       }
+    } catch (error) {
+      console.log(error);
     }
-    useEffect(()=>{
-      getUserBlogs()
-    },[])
+  };
+
+  useEffect(() => {
+    getUserBlogs();
+  }, []);
+
   return (
     <div>
-    {blogs && blogs.length > 0 ? ( blogs.map((blog) => (
-      <BlogCard
-        id={blog._id}
-        isUser={true}
-        title={blog.title}
-        description={blog.description}
-        image={blog.image}
-        username={blog.user.username}
-        // username={blog.username}
-        time={blog.createdAt}
-      />))): (<h1>You Havent Created Blog Yet Please Create some blog.</h1>)
-      };
+      {blogs && blogs.length > 0 ? (
+        blogs.map((blog) => (
+          <BlogCard
+            id={blog?._id}
+            isUser={true}
+            title={blog?.title}
+            description={blog?.description}
+            image={blog?.image}
+            username={blog?.user.username}
+            time={blog?.createdAt}
+          />
+        ))
+      ) : (
+        <h2
+          className="forh1"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            textAlign: "center",
+          }}
+        >
+          You Haven't Created a Blog Yet. Please Create Some Blog.
+        </h2>
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default UserBlogs;

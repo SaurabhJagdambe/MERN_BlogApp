@@ -16,10 +16,10 @@
     },
     user:{
         type:mongoose.Types.ObjectId,
-        ref:'User',
+        ref:"User",
         require:[true,"password is required"],
     },
  },{timestamps:true});
 
- const blogModel = mongoose.model('Blog',blogSchema)
+ const blogModel = mongoose.model("Blog",blogSchema)
  module.exports=blogModel;
